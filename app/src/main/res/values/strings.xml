@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Record_sensor</string>
+    <string name="display_data">display data</string>
+    <string name="record_data">record data</string>
+    <string name="action_name">action name</string>
+    <string name="no_record">沒有資料！</string>
+    <string name="check_data">check data</string>
+    <string name="back">返回</string>
+    <string name="delete">刪除</string>
+    <string name="helloUser">Welcome to ACTION RECORD!</string>
+</resources>
