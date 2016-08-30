@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.record_sensor">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,17 +25,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".record"
+            android:name=".p_record"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-                                    >
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".w_record"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".display"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".BluetoothService"
+            android:exported="false"
+            android:stopWithTask="true"/>
     </application>
 
 </manifest>

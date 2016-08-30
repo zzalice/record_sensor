@@ -21,7 +21,7 @@ import com.example.user.record_sensor.DB.DBhelper;
 /**
  * Created by User on 2016/8/11.
  */
-public class record extends Activity implements SensorEventListener{
+public class p_record extends Activity implements SensorEventListener{
 
     private Context context;
     private TextView text_x;
@@ -53,24 +53,23 @@ public class record extends Activity implements SensorEventListener{
                 ActionName=actionname_editText.getText().toString();//拿取editbox裡的文字，並轉成stirng格式
 
                 Log.v("test","recording actionname!");
-                            if(ActionName.length()==0){//警告使用者輸入動作名稱
-                                Toast.makeText(context, "請輸入動作名稱", Toast.LENGTH_SHORT).show();
-                                Log.v("test","no actionname!");
-                            }
-                            else{
-                                //進行動作紀錄
-                                ContentValues cv=new ContentValues();
-                                cv.put("actionname",ActionName);
-                                cv.put("actiondata",ActionData);
-                                // 執行SQL語句
-                                long id = db.insert("actions", null, cv);
-                                Toast.makeText(context, "_id：" + id, Toast.LENGTH_SHORT).show();
+                if(ActionName.length()==0){//警告使用者輸入動作名稱
+                    Toast.makeText(context, "請輸入動作名稱", Toast.LENGTH_SHORT).show();
+                    Log.v("test","no actionname!");
+                }
+                else{
+                    //進行動作紀錄
+                    ContentValues cv=new ContentValues();
+                    cv.put("actionname",ActionName);
+                    cv.put("actiondata",ActionData);
+                    // 執行SQL語句
+                    long id = db.insert("actions", null, cv);
+                    Toast.makeText(context, "_id：" + id, Toast.LENGTH_SHORT).show();
 
-                                Log.v("test","store data!");
-                                finish();
-                            }
+                    Log.v("test","store data!");
+                    finish();
+                }
             }
-
         });
 
     }
