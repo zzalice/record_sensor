@@ -38,6 +38,9 @@ public class w_record extends Activity {
     private TextView text_x;
     private TextView text_y;
     private TextView text_z;
+    private TextView text_x2;
+    private TextView text_y2;
+    private TextView text_z2;
     private EditText actionname_editText;
     int i = 0;//紀錄現在登記到第幾個動作
     private DBhelper dbhelper;
@@ -48,6 +51,9 @@ public class w_record extends Activity {
     Double value_x = 0.0;
     Double value_y = 0.0;
     Double value_z = 0.0;
+    Double value_x2 = 0.0;
+    Double value_y2 = 0.0;
+    Double value_z2 = 0.0;
     private boolean startflag=false;
     // bluetooth
     private BluetoothService service;
@@ -116,6 +122,9 @@ public class w_record extends Activity {
         text_x = (TextView) findViewById(R.id.textView2);
         text_y = (TextView) findViewById(R.id.textView3);
         text_z = (TextView) findViewById(R.id.textView4);
+        text_x2 = (TextView) findViewById(R.id.textView8);
+        text_y2 = (TextView) findViewById(R.id.textView9);
+        text_z2 = (TextView) findViewById(R.id.textView10);
         actionname_editText = (EditText) findViewById(R.id.editText);
     }
 
@@ -134,9 +143,15 @@ public class w_record extends Activity {
                     value_x = Double.parseDouble(service.getX());
                     value_y = Double.parseDouble(service.getY());
                     value_z = Double.parseDouble(service.getZ());
+                    value_x2 = Double.parseDouble(service.getX2());
+                    value_y2 = Double.parseDouble(service.getY2());
+                    value_z2 = Double.parseDouble(service.getZ2());
                     text_x.setText("X = " + value_x);
                     text_y.setText("Y = " + value_y);
                     text_z.setText("Z = " + value_z);
+                    text_x2.setText("X2 = " + value_x2);
+                    text_y2.setText("Y2 = " + value_y2);
+                    text_z2.setText("Z2 = " + value_z2);
 
                     //Log.i("W_Testaction", value_x + "+" + value_y + "+" + value_z);
                 }
