@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
@@ -25,14 +24,12 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.hello.joyce.record.DB.DBhelper;
+import com.hello.joyce.record.DB.DBhelper_2;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-/**
- * Created by zzalice on 2016/8/30.
- */
 public class w_record extends Activity {
     private Context context;
     private TextView text_x;
@@ -45,9 +42,12 @@ public class w_record extends Activity {
     int i = 0;//紀錄現在登記到第幾個動作
     private DBhelper dbhelper;
     private SQLiteDatabase db;
+    private DBhelper_2 dbhelper_2;
+    private SQLiteDatabase db_2;
     Button record_onedata, record_continued, continue_stop;
     String ActionData = "";
     String ActionName = "";
+    String ActionData_2 = "";
     Double value_x = 0.0;
     Double value_y = 0.0;
     Double value_z = 0.0;
@@ -85,6 +85,8 @@ public class w_record extends Activity {
             @Override
             public void onClick(View view) {
                 ActionData += "x = " + value_x + "  y = " + value_y + "  z = " + value_z;
+                ActionData_2 += "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2;
+
                 ActionName = actionname_editText.getText().toString();//拿取editbox裡的文字，並轉成stirng格式
 
                 Log.v("test", "recording actionname!");
@@ -98,6 +100,17 @@ public class w_record extends Activity {
                     cv.put("actiondata", ActionData);
                     // 執行SQL語句
                     id = db.insert("actions", null, cv);
+
+                    Toast.makeText(context, "_id：" + id, Toast.LENGTH_SHORT).show();
+                    //進行動作紀錄(watch2)
+                    ContentValues cv_2 = new ContentValues();
+                    cv_2.put("actionname", ActionName);
+                    cv_2.put("actiondata", ActionData_2);
+                    //執行SQL語句
+                    id = db_2.insert("actions_2", null, cv_2);
+                    Log.e("data", ActionData_2);
+
+
                     Toast.makeText(context, "_id：" + id, Toast.LENGTH_SHORT).show();
 
                     Log.v("test", "store data!");
@@ -111,20 +124,27 @@ public class w_record extends Activity {
     }
 
     public void init() {
+        //手腕的資料庫
         dbhelper = new DBhelper(context);
         db = dbhelper.getWritableDatabase();
+        //手軸的資料庫
+        dbhelper_2 = new DBhelper_2(context);
+        db_2 = dbhelper_2.getWritableDatabase();
 
         record_onedata = (Button) findViewById(R.id.button3);
         record_continued = (Button) findViewById(R.id.button4);
         continue_stop = (Button) findViewById(R.id.button5);
         record_continued.setOnClickListener(listener);
         continue_stop.setOnClickListener(listener);
+        //手腕資料
         text_x = (TextView) findViewById(R.id.textView2);
         text_y = (TextView) findViewById(R.id.textView3);
         text_z = (TextView) findViewById(R.id.textView4);
+        //手軸資料
         text_x2 = (TextView) findViewById(R.id.textView8);
         text_y2 = (TextView) findViewById(R.id.textView9);
         text_z2 = (TextView) findViewById(R.id.textView10);
+
         actionname_editText = (EditText) findViewById(R.id.editText);
     }
 
@@ -134,7 +154,7 @@ public class w_record extends Activity {
         bindService(bluetoothIntent, connection, Context.BIND_AUTO_CREATE);
         startService(bluetoothIntent);
 
-        // watch1 取 sensor 值
+        // watch1 , watch2 取 sensor 值
         handler = new Handler();
         handler.post(new Runnable() {
             @Override
@@ -204,7 +224,10 @@ public class w_record extends Activity {
         public void run() {
             if (startflag) {
                 //如果startflag是true則每秒測一次
+                //watch1
                 ActionData += "x = " + value_x + "  y = " + value_y + "  z = " + value_z + "\n";
+                //watch2
+                ActionData_2 += "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2 + "\n";
                 ActionName = actionname_editText.getText().toString();//拿取editbox裡的文字，並轉成stirng格式
 
                 Log.v("test", "recording actionname!");
@@ -217,12 +240,18 @@ public class w_record extends Activity {
                     message.what = 1;
                     handle.sendMessage(message);
                 } else {
-                    //進行動作紀錄
+                    //進行動作紀錄(watch1)
                     ContentValues cv = new ContentValues();
                     cv.put("actionname", ActionName);
                     cv.put("actiondata", ActionData);
                     // 執行SQL語句
                     id = db.insert("actions", null, cv);
+                    //進行動作紀錄(watch2)
+                    ContentValues cv_2 = new ContentValues();
+                    cv_2.put("actionname", ActionName);
+                    cv_2.put("actiondata", ActionData_2);
+                    //執行SQL語句
+                    id = db_2.insert("actions_2", null, cv_2);
                 }
             }
         }

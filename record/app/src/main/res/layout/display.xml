@@ -24,13 +24,45 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="清除歷史資料"
-                android:id="@+id/btn_clean"
+                android:text="clean watch1"
+                android:id="@+id/btn_clean1"
                 android:onClick="true"
                 android:layout_below="@+id/correstView"
-                android:layout_centerHorizontal="true" />
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clean watch2"
+                android:id="@+id/btn_clean2"
+                android:onClick="true"
+                android:layout_below="@+id/correstView"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="165dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="watch2 data"
+                android:id="@+id/btn_watch2"
+                android:layout_below="@+id/correstView"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="445dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="watch1 data"
+                android:id="@+id/btn_watch1"
+                android:layout_below="@+id/correstView"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="310dp"/>
         </RelativeLayout>
     </ScrollView>
+
+
+
+
 
 </RelativeLayout>
