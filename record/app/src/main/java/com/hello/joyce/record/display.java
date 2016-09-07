@@ -56,7 +56,7 @@ public class display extends Activity{
         if(string == null){
             textView.setText("watch1: no_record");
         }else{
-            textView.setText("watch1_" + string);
+            textView.setText("watch1\n\n" + string+ "\n");
         }
     }
 
@@ -65,7 +65,7 @@ public class display extends Activity{
         if(string_2 == null){
             textView.setText("watch2: no_record");
         }else{
-            textView.setText("watch2_" + string_2);
+            textView.setText("watch2\n\n" + string_2 + "\n");
         }
     }
 
@@ -76,7 +76,6 @@ public class display extends Activity{
         //query: table, [] columns, selection, [] selectionArgs, groupBy, having, orderBy
         Cursor cursor = db.query(dBhelper.TABLE_ACTIONS, columns, null, null, null, null, null);
         StringBuffer buffer = new StringBuffer();
-
         while (cursor.moveToNext()) {
             int indexName = cursor.getColumnIndex(dBhelper.COLUMN_NAME);
             int indexData = cursor.getColumnIndex(dBhelper.COLUMN_ACTIONDATA);
@@ -84,10 +83,8 @@ public class display extends Activity{
             String name = cursor.getString(indexName);
             String data = cursor.getString(indexData);
 
-            buffer.append(name + " ：\n " + data + "\n");
+            buffer.append(name + " ： " + data);
         }
-        Log.e("getdata", "success");
-
         if(cursor.getCount() == 0){
             string = null;
         }else{
@@ -110,7 +107,7 @@ public class display extends Activity{
             String name = cursor.getString(indexName);
             String data = cursor.getString(indexData);
 
-            buffer.append(name + " ：\n " + data + "\n");
+            buffer.append(name + " ： " + data);
         }
         Log.e("getdata", "success");
 
@@ -153,7 +150,7 @@ public class display extends Activity{
             if(string == null){
                 textView.setText("watch1: no_record");
             }else{
-                textView.setText("watch1_" + string);
+                textView.setText("watch1\n\n" + string);
             }
         }
     };
@@ -165,7 +162,7 @@ public class display extends Activity{
             if(string_2 == null){
                 textView.setText("watch2: no_record");
             }else{
-                textView.setText("watch2_" + string_2);
+                textView.setText("watch2\n\n" + string_2 );
             }
         }
     };

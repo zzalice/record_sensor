@@ -84,8 +84,8 @@ public class w_record extends Activity {
         record_onedata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActionData += "x = " + value_x + "  y = " + value_y + "  z = " + value_z;
-                ActionData_2 += "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2;
+                ActionData = "x = " + value_x + "  y = " + value_y + "  z = " + value_z;
+                ActionData_2 = "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2;
 
                 ActionName = actionname_editText.getText().toString();//拿取editbox裡的文字，並轉成stirng格式
 
@@ -101,6 +101,8 @@ public class w_record extends Activity {
                     // 執行SQL語句
                     id = db.insert("actions", null, cv);
 
+                    Log.v("data", ActionData);
+
                     Toast.makeText(context, "_id：" + id, Toast.LENGTH_SHORT).show();
                     //進行動作紀錄(watch2)
                     ContentValues cv_2 = new ContentValues();
@@ -108,6 +110,7 @@ public class w_record extends Activity {
                     cv_2.put("actiondata", ActionData_2);
                     //執行SQL語句
                     id = db_2.insert("actions_2", null, cv_2);
+
                     Log.e("data", ActionData_2);
 
 
@@ -225,9 +228,9 @@ public class w_record extends Activity {
             if (startflag) {
                 //如果startflag是true則每秒測一次
                 //watch1
-                ActionData += "x = " + value_x + "  y = " + value_y + "  z = " + value_z + "\n";
+                ActionData = "x = " + value_x + "  y = " + value_y + "  z = " + value_z + "\n";
                 //watch2
-                ActionData_2 += "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2 + "\n";
+                ActionData_2 = "x = " + value_x2 + "  y = " + value_y2 + "  z = " + value_z2 + "\n";
                 ActionName = actionname_editText.getText().toString();//拿取editbox裡的文字，並轉成stirng格式
 
                 Log.v("test", "recording actionname!");
@@ -246,6 +249,7 @@ public class w_record extends Activity {
                     cv.put("actiondata", ActionData);
                     // 執行SQL語句
                     id = db.insert("actions", null, cv);
+                    Log.e("data",ActionData);
                     //進行動作紀錄(watch2)
                     ContentValues cv_2 = new ContentValues();
                     cv_2.put("actionname", ActionName);
